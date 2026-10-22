@@ -2,6 +2,18 @@
 import sqlite3
 database = "tracker.db"
 
+
+conn = sqlite3.connect("tracker.db")
+# cursor is basically the controller
+cursor = conn.cursor()
+
+    # Create table
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users(
+data TEXT, value INTEGER
+)
+""")
+
 def main():
     while True:
         mainMenu = int(input(f"\n1. View Spending\n2. Add Money to Spending\n3. Exit\n\nPlease enter your pick:  "))
@@ -19,19 +31,14 @@ def view_current():
        # print("\nYour database is currently empty\n")
     
     print(cursor.fetchall())
+    db_file = "tracker.db"
+    query = "SELECT * FROM users"
+    print(db_file,query)
+
 
 def add():
 
-    conn = sqlite3.connect("tracker.db")
-# cursor is basically the controller
-    cursor = conn.cursor()
-
-    # Create table
-    cursor.execute("""
-CREATE TABLE IF NOT EXISTS users(
-data TEXT, value INTEGER
-)
-""")
+   
 
 
 
