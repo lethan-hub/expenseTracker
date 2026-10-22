@@ -14,7 +14,11 @@ def main():
                 exit()
    
         
-
+def view_current():
+    #if not sqlite3 "tracker.db":
+       # print("\nYour database is currently empty\n")
+    
+    print(cursor.fetchall())
 
 def add():
 
@@ -48,8 +52,6 @@ data TEXT, value INTEGER
                             break
                         except ValueError:
                             print("Please enter a valid number")
-
-
 
 
 
