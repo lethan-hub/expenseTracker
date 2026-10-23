@@ -1,7 +1,12 @@
 # Monthly Expense Tracker
 import sqlite3
+import datetime
 database = "tracker.db"
 
+
+# Date and Time
+now = datetime.datetime.now()
+formatted_timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
 
 conn = sqlite3.connect("tracker.db")
 # cursor is basically the controller
@@ -10,7 +15,7 @@ cursor = conn.cursor()
     # Create table
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users(
-data TEXT, value INTEGER
+data TEXT, value INTEGER, timestamp TIMESTAMP
 )
 """)
 
@@ -29,7 +34,6 @@ def main():
 def view_current():
     #if not sqlite3 "tracker.db":
        # print("\nYour database is currently empty\n")
-
 
     # Selects the information from the users table
     cursor.execute("SELECT * FROM users")
@@ -58,12 +62,12 @@ def add():
                             data_entry = input("What did you spend it on?: ")
                             value_entry = float(input("How much money did you spend today?: "))
 
-                            sql_entry = "INSERT INTO users(data,value) VALUES (?,?)"
-                            cursor.execute(sql_entry,(data_entry,value_entry))
+                            sql_entry = "INSERT INTO users(data,value,timestamp) VALUES (?,?,?)"
+                            cursor.execute(sql_entry,(formatted_timestamp,data_entry,value_entry))
                             conn.commit()
                             
                 
-                            print(f"\nYou bought {data_entry} for $ {value_entry:.2f}")
+                            print(f"\nYou bought {data_entry} for $ {value_entry:.2f} at {formatted_timestamp}")
                             break
                         except ValueError:
                             print("Please enter a valid number")
