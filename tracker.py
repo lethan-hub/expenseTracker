@@ -29,11 +29,19 @@ def main():
 def view_current():
     #if not sqlite3 "tracker.db":
        # print("\nYour database is currently empty\n")
-    
-    print(cursor.fetchall())
-    db_file = "tracker.db"
-    query = "SELECT * FROM users"
-    print(db_file,query)
+
+
+    # Selects the information from the users table
+    cursor.execute("SELECT * FROM users")
+
+
+    # Gathers all the information into rows to print out
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+
+    cursor.close()
+    conn.close()
 
 
 def add():
